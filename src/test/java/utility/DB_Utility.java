@@ -6,10 +6,6 @@ import java.sql.SQLException;
 
 public class DB_Utility {
 
-    public static void main(String[] args) {
-        createConnection();
-    }
-
     public static void createConnection(){
 
         String connectionStr = "jdbc:oracle:thin:@54.166.212.192:1521:XE";
