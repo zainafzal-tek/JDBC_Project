@@ -158,10 +158,34 @@ public class DB_Utility {
         try {
             rs.absolute(rowNum);
             result = rs.getString(colNum);
+            rs.beforeFirst();
+
         } catch (SQLException e){
             System.out.println("ERROR WHILE GETTING CELL VALUE AT ROWNUM COLUMN" + e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Create a method to return the cell value at certain row certain column
+     * @param rowNum  row number
+     * @parem colName column name
+     * @return Cell value as String
+     */
+    public static String getColumnDataAtRow(int rowNum, String colName){
+
+        String result = "" ;
+
+        try {
+            rs.absolute(rowNum) ;
+            result = rs.getString( colName ) ;
+            rs.beforeFirst(); // moving back to before first location
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE GETTING CELL VALUE AT ROWNUM column name " + e.getMessage() );
+        }
+
+        return result ;
     }
 
 }

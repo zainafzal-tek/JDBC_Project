@@ -26,6 +26,14 @@ public class UtilityPractice {
 
         System.out.println("All column names = " + DB_Utility.getColumnNames());
 
+        System.out.println("Row data at row 3 " + DB_Utility.getRowDataAsList(3)  );
+
+        System.out.println("Get Cell value at row 2 col 4 "
+                + DB_Utility.getColumnDataAtRow(2, 4) );
+
+        System.out.println("Get Cell value at row 2 col MIN_SALARY "
+                + DB_Utility.getColumnDataAtRow(2, "MIN_SALARY"));
+
 
     }
 
