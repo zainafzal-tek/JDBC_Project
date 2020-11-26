@@ -27,7 +27,7 @@ public class DB_Utility {
     // and return ResultSet Object
     public static ResultSet runQuery(String query){
 
-        ResultSet rs  = null;
+        //ResultSet rs  = null;
         // reusing the connection built from previous method
         try {
             stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -116,6 +116,52 @@ public class DB_Utility {
         }
 
         return columnList;
+    }
+
+    /**
+     * Create a method that return all row data as a List<String>
+     * @param rowNum Row number you want to get the data
+     * @return the row data as List object
+     */
+    public static List<String> getRowDataAsList(int rowNum){
+
+        List<String> rowDataList = new ArrayList<>();
+
+        // first we need to move the pointer to the location the rowNum specified
+        try {
+            rs.absolute(rowNum) ;
+
+            for (int colNum = 1; colNum <= getColumnCount() ; colNum++) {
+
+                String cellValue = rs.getString( colNum ) ;
+                rowDataList.add( cellValue ) ;
+
+            }
+            rs.beforeFirst();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE GETTING ROW DATA AS LIST " + e.getMessage() );
+        }
+        return rowDataList ;
+
+    }
+
+    /**
+     * Create a method to return the cell value at certain row certain column
+     * @param rowNum
+     * @param colNum
+     * @return cell value as string
+     */
+    public static String getColumnDataAtRow(int rowNum, int colNum){
+        String result = "";
+
+        try {
+            rs.absolute(rowNum);
+            result = rs.getString(colNum);
+        } catch (SQLException e){
+            System.out.println("ERROR WHILE GETTING CELL VALUE AT ROWNUM COLUMN" + e.getMessage());
+        }
+        return result;
     }
 
 }
