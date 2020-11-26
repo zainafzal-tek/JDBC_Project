@@ -148,8 +148,8 @@ public class DB_Utility {
 
     /**
      * Create a method to return the cell value at certain row certain column
-     * @param rowNum
-     * @param colNum
+     * @param rowNum row number
+     * @param colNum col number
      * @return cell value as string
      */
     public static String getColumnDataAtRow(int rowNum, int colNum){
@@ -169,7 +169,7 @@ public class DB_Utility {
     /**
      * Create a method to return the cell value at certain row certain column
      * @param rowNum  row number
-     * @parem colName column name
+     * @param colName column name
      * @return Cell value as String
      */
     public static String getColumnDataAtRow(int rowNum, String colName){
@@ -186,6 +186,70 @@ public class DB_Utility {
         }
 
         return result ;
+    }
+
+    /**
+     * return value of all cells in that column
+     *
+     * @param colNum the column number yuo want to get the list out of
+     * @return value of all cells in that column as a List<String>
+     */
+    public static List<String> getColumnDataAsList(int colNum){
+        List<String> cellValuesList = new ArrayList<>();
+
+        try {
+
+            while (rs.next()) {
+                String cellValue = rs.getString(colNum);
+                cellValuesList.add(cellValue);
+            }
+            rs.beforeFirst();
+        }catch (SQLException e){
+            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage());
+        }
+        return cellValuesList;
+    }
+
+    /**
+     * return value of all cells in that column
+     *
+     * @param colName the column number yuo want to get the list out of
+     * @return value of all cells in that column as a List<String>
+     */
+    public static List<String> getColumnDataAsList(String colName){
+        List<String> cellValuesList = new ArrayList<>();
+
+        try {
+
+            while (rs.next()) {
+                String cellValue = rs.getString(colName);
+                cellValuesList.add(cellValue);
+            }
+            rs.beforeFirst();
+        }catch (SQLException e){
+            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage());
+        }
+        return cellValuesList;
+    }
+
+    /**
+     * A method that display all the result set data on console
+     */
+    public static void displayAllData(){
+
+        try {
+            rs.beforeFirst();
+
+            while (rs.next()){
+                for (int colNum = 1; colNum <= getColumnCount(); colNum++){
+                    System.out.println(rs.getString(colNum) + "\t");
+                }
+                System.out.println();
+            }
+        } catch (SQLException e){
+            System.out.println("ERROR WHILE PRINTING WHOLE TABLE " + e.getMessage());
+        }
+
     }
 
 }
