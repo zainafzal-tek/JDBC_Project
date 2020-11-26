@@ -10,12 +10,11 @@ public class DB_Utility {
     static Statement stmnt ;
     static ResultSet rs ;
 
-
     public static void createConnection(){
 
-        String connectionStr = "jdbc:oracle:thin:@54.166.212.192:1521:XE";
-        String username = "hr";
-        String password = "hr";
+        String connectionStr = ConfigurationReader.getProperty("ipaddress");
+        String username = ConfigurationReader.getProperty("dbusername");
+        String password = ConfigurationReader.getProperty("dbpassword");
         try {
             conn = DriverManager.getConnection(connectionStr, username, password);
         } catch (SQLException e){
