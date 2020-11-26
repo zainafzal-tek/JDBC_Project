@@ -1,6 +1,8 @@
 package utility;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB_Utility {
 
@@ -92,6 +94,28 @@ public class DB_Utility {
         }
 
         return columnCount ;
+    }
+
+    /**
+     * A method that returns all the column name as List<String>
+     */
+    public static List<String> getColumnNames(){
+
+        List<String> columnList = new ArrayList<>();
+
+        try {
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            for (int colNum = 1; colNum <= getColumnCount(); colNum++){
+                String columnName = rsmd.getColumnLabel(colNum);
+                columnList.add(columnName);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR WHILE GETTING ALL COLUMN NAMEs" + e.getMessage());
+        }
+
+        return columnList;
     }
 
 }
