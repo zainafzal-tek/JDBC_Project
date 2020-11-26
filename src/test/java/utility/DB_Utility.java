@@ -15,7 +15,7 @@ public class DB_Utility {
         String username = "hr";
         String password = "hr";
         try {
-            Connection conn = DriverManager.getConnection(connectionStr, username, password);
+            conn = DriverManager.getConnection(connectionStr, username, password);
         } catch (SQLException e){
             System.out.println("Connection has failed!!! " + e.getMessage());
         }
@@ -25,10 +25,10 @@ public class DB_Utility {
     // and return ResultSet Object
     public static ResultSet runQuery(String query){
 
-//        ResultSet rs  = null;
+        ResultSet rs  = null;
         // reusing the connection built from previous method
         try {
-            Statement stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stmnt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmnt.executeQuery(query) ;
 
         } catch (SQLException e) {
@@ -50,5 +50,7 @@ public class DB_Utility {
             throwables.printStackTrace();
         }
     }
+
+
 
 }
