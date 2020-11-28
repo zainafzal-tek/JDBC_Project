@@ -243,8 +243,9 @@ public class DB_Utility {
 
             while (rs.next()){
                 for (int colNum = 1; colNum <= getColumnCount(); colNum++){
-                    System.out.println(rs.getString(colNum) + "\t");
+                    System.out.printf("%-35s" + rs.getString(colNum));
                 }
+                rs.beforeFirst();
                 System.out.println();
             }
         } catch (SQLException e){

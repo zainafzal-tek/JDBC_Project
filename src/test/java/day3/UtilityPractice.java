@@ -78,6 +78,9 @@ public class UtilityPractice {
 
         DB_Utility.destroy();
 
+        System.out.println("-----------------------\n");
+        DB_Utility.displayAllData();
+
     }
 
 }
