@@ -11,7 +11,7 @@ public class DB_Test {
     @BeforeAll
     public static void init(){
         System.out.println("::: Starting TEST :::");
-        DB_Utility.createConnection();
+        DB_Utility.createConnection("employees");
     }
 
     @Test

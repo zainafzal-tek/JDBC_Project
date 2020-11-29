@@ -6,7 +6,7 @@ public class WakeUpTask {
 
     public static void main(String[] args) {
 
-        DB_Utility.createConnection();
+        DB_Utility.createConnection("employees");
 
         String query = "SELECT e.FIRST_NAME , d.DEPARTMENT_NAME , e.SALARY " +
                 "FROM EMPLOYEES e " +

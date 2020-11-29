@@ -7,15 +7,30 @@ import java.util.List;
 import java.util.Map;
 
 public class DB_Utility {
+
     static Connection conn; // make it static field so we can reuse in every methods we write
     static Statement stmnt;
     static ResultSet rs;
 
-    public static void createConnection() {
+    public static void createConnection(String databaseName) {
 
-        String connectionStr = ConfigurationReader.getProperty("ipaddress");
-        String username = ConfigurationReader.getProperty("dbusername");
-        String password = ConfigurationReader.getProperty("dbpassword");
+        String connectionStr = "";
+        String username = "";
+        String password = "";
+
+        switch (databaseName) {
+            case "employees":
+                connectionStr = ConfigurationReader.getProperty("employees.ipaddress");
+                username = ConfigurationReader.getProperty("employees.username");
+                password = ConfigurationReader.getProperty("employees.password");
+                break;
+
+            case "sparta":
+                connectionStr = ConfigurationReader.getProperty("spartan.ipaddress");
+                username = ConfigurationReader.getProperty("spartan.username");
+                password = ConfigurationReader.getProperty("spartan.password");
+                break;
+        }
 
         try {
             conn = DriverManager.getConnection(connectionStr, username, password);
@@ -164,7 +179,8 @@ public class DB_Utility {
      * @param rowNum row number
      * @param colNum column number
      * @return Cell value as String
-    =     */
+     * =
+     */
     public static String getColumnDataAtRow(int rowNum, int colNum) {
 
         String result = "";
@@ -184,7 +200,7 @@ public class DB_Utility {
     /**
      * Create a method to return the cell value at certain row certain column
      *
-     * @param rowNum row number
+     * @param rowNum  row number
      * @param colName column name
      * @return Cell value as String at specified row numeber and column number
      */
@@ -219,17 +235,18 @@ public class DB_Utility {
             while (rs.next()) {
 
                 String cellValue = rs.getString(colNum);
-                cellValuesList.add( cellValue ) ;
+                cellValuesList.add(cellValue);
 
             }
             rs.beforeFirst();
 
         } catch (SQLException e) {
-            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage() );
+            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage());
         }
-        return cellValuesList ;
+        return cellValuesList;
 
     }
+
     /**
      * return value of all cells in that column using column name
      *
@@ -245,22 +262,22 @@ public class DB_Utility {
             while (rs.next()) {
 
                 String cellValue = rs.getString(colName);
-                cellValuesList.add( cellValue ) ;
+                cellValuesList.add(cellValue);
 
             }
             rs.beforeFirst(); //Move it back to before first location
 
         } catch (SQLException e) {
-            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage() );
+            System.out.println("ERROR WHILE GETTING ONE COLUMN DATA AS LIST " + e.getMessage());
         }
-        return cellValuesList ;
+        return cellValuesList;
 
     }
 
     /**
      * A method that display all the result set data on console
      */
-    public static void displayAllData(){
+    public static void displayAllData() {
 
         try {
             rs.beforeFirst();
@@ -283,23 +300,24 @@ public class DB_Utility {
 
     /**
      * A method that return the row data along with column name as Map object
+     *
      * @param rowNum row numebr you want to get the data
      * @return Map object -- column name as key and cell value as value
      */
-    public static Map<String,String> getRowMap(int rowNum){
+    public static Map<String, String> getRowMap(int rowNum) {
 
-        Map<String,String>  rowMap = new LinkedHashMap<>() ;
+        Map<String, String> rowMap = new LinkedHashMap<>();
 
-        try{
+        try {
 
-            rs.absolute(rowNum) ;
-            ResultSetMetaData rsmd = rs.getMetaData() ;
+            rs.absolute(rowNum);
+            ResultSetMetaData rsmd = rs.getMetaData();
 
-            for (int colNum = 1; colNum <= rsmd.getColumnCount() ; colNum++) {
+            for (int colNum = 1; colNum <= rsmd.getColumnCount(); colNum++) {
 
-                String columnName   =  rsmd.getColumnLabel( colNum ) ;
-                String cellValue    =  rs.getString( colNum ) ;
-                rowMap.put(columnName, cellValue) ;
+                String columnName = rsmd.getColumnLabel(colNum);
+                String cellValue = rs.getString(colNum);
+                rowMap.put(columnName, cellValue);
 
             }
             rs.beforeFirst();
@@ -307,19 +325,19 @@ public class DB_Utility {
         } catch (SQLException e) {
             System.out.println("ERROR WHILE getting RowMap " + e.getMessage());
         }
-        return rowMap ;
+        return rowMap;
 
     }
 
-    public static List<Map<String,String> > getAllDataAsListOfMap(){
+    public static List<Map<String, String>> getAllDataAsListOfMap() {
 
-        List<Map<String,String> > rowMapList = new ArrayList<>();
+        List<Map<String, String>> rowMapList = new ArrayList<>();
 
-        for (int rowNum = 1; rowNum <= getRowCount() ; rowNum++) {
+        for (int rowNum = 1; rowNum <= getRowCount(); rowNum++) {
 
-            rowMapList.add(   getRowMap(rowNum)    ) ;
+            rowMapList.add(getRowMap(rowNum));
 
         }
-        return  rowMapList ;
+        return rowMapList;
     }
 }

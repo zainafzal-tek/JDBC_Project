@@ -13,7 +13,7 @@ public class UtilityPractice {
 
     public static void main(String[] args) throws SQLException {
 
-        DB_Utility.createConnection();
+        DB_Utility.createConnection("employees");
 
         ResultSet jobRS = DB_Utility.runQuery("SELECT * FROM JOBS");
 
