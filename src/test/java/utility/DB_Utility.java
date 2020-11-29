@@ -30,6 +30,12 @@ public class DB_Utility {
                 username = ConfigurationReader.getProperty("spartan.username");
                 password = ConfigurationReader.getProperty("spartan.password");
                 break;
+
+            case "library":
+                connectionStr = ConfigurationReader.getProperty("library.ipaddress");
+                username = ConfigurationReader.getProperty("library.username");
+                password = ConfigurationReader.getProperty("library.password");
+                break;
         }
 
         try {
