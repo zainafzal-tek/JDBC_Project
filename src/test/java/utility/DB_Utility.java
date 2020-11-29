@@ -31,10 +31,16 @@ public class DB_Utility {
                 password = ConfigurationReader.getProperty("spartan.password");
                 break;
 
-            case "library":
-                connectionStr = ConfigurationReader.getProperty("library.ipaddress");
-                username = ConfigurationReader.getProperty("library.username");
-                password = ConfigurationReader.getProperty("library.password");
+            case "library1":
+                connectionStr = ConfigurationReader.getProperty("library1.ipaddress");
+                username = ConfigurationReader.getProperty("library1.username");
+                password = ConfigurationReader.getProperty("library1.password");
+                break;
+
+            case "library2":
+                connectionStr = ConfigurationReader.getProperty("library2.ipaddress");
+                username = ConfigurationReader.getProperty("library2.username");
+                password = ConfigurationReader.getProperty("library2.password");
                 break;
         }
 
